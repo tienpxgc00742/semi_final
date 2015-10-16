@@ -20,8 +20,9 @@ public class ReceiverActivity extends ActionBarActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if(bundle != null) {
-            String text = bundle.getString("title");
-            mDisplay.setText(text);
+            String text = bundle.getString("type");
+            String id = bundle.getString("id");
+            mDisplay.setText(text + " -> " + id);
         }
 
     }

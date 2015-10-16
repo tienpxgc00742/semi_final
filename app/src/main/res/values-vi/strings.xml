@@ -31,4 +31,7 @@
     <string name="loading">Đang tải...</string>
     <string name="warning_no_network">Không có kết nối mạng</string>
     <string name="refresh">Làm mới</string>
+
+    <string name="hours">giờ</string>
+    <string name="minutes">phút</string>
 </resources>

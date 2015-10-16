@@ -17,7 +17,9 @@ import android.widget.Toast;
 import com.tnaapp.tnalayout.R;
 import com.tnaapp.tnalayout.activity.MainActivity;
 import com.tnaapp.tnalayout.activity.fragments.VideosChannelFragment;
+import com.tnaapp.tnalayout.ai.Video;
 import com.tnaapp.tnalayout.model.ExpandedListView;
+import com.tnaapp.tnalayout.tien.box.DatabaseHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -131,6 +133,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     ((MainActivity) getSupportActivity()).getVideosChannelFragment().setChannelData(getGroup(groupPosition).toString());
                     ((MainActivity) getSupportActivity()).getVideosChannelFragment().setVideosData(_listDataChild.get(getGroup(groupPosition).toString()));
                     ((MainActivity) getSupportActivity()).loadChannelForPlayer();
+                    //Save History
+//                    DatabaseHandler db = new DatabaseHandler(view.getContext());
+//                    db.addHistory(new Video());
                 }
             }
         });

@@ -34,7 +34,7 @@ public class RootNews {
     public List<News> searchNews(String text){
         List<News> list = new ArrayList<>();
            for (News n : news){
-               if(n.getTitle().contains(text.trim()) || n.getContent().contains(text.trim())){
+               if(n.getTitle().toLowerCase().contains(text.trim()) || n.getContent().contains(text.trim())){
                    list.add(n);
                }
            }

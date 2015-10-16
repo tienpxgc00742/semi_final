@@ -31,11 +31,20 @@ public class RootVideo {
         return res;
     }
 
+    public List<Video> getAllVideos() {
+        List<Video> videos = new ArrayList<>();
+        for (Response r : response) {
+            for (Video v : r.getVideos()) {
+                videos.add(v);
+            }
+        }
+        return videos;
+    }
     public List<Video> searchVideo(String text) {
         List<Video> videos = new ArrayList<>();
         for (Response r : response) {
             for (Video v : r.getVideos()) {
-                if (v.getTitle().contains(text.trim()) || v.getDescription().contains(text.trim())) {
+                if (v.getTitle().toLowerCase().contains(text.trim()) || v.getDescription().contains(text.trim())) {
                     videos.add(v);
                 }
             }

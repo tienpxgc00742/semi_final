@@ -3,6 +3,7 @@ package com.tnaapp.tnalayout.ai;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.tnaapp.tnalayout.model.NewsVideosItem;
 import com.tnaapp.tnalayout.tien.model.Item;
 import com.tnaapp.tnalayout.tien.model.RSS;
 
@@ -23,13 +24,22 @@ public class MyConverter {
         return news;
     }
 
+    public static NewsVideosItem jsonToVideosInNews(String json) {
+        NewsVideosItem newsvid = new NewsVideosItem();
+        try {
+            newsvid = new Gson().fromJson(json, NewsVideosItem.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return newsvid;
+    }
+
     public static RSS jsonToRSS(String json) {
         RSS rss = new RSS();
         try {
             //rss = new Gson().fromJson(json, RSS.class);
             JSONArray arrayResponse = new JSONArray(json);
-            for(int i=0; i<arrayResponse.length(); i++)
-            {
+            for (int i = 0; i < arrayResponse.length(); i++) {
                 JSONObject obj = arrayResponse.getJSONObject(i);
                 Log.wtf("STRING:", String.valueOf(obj.toString()));
                 Log.wtf("ID:", String.valueOf(obj.getString("title") + "-" + obj.names().toString()));
@@ -41,16 +51,16 @@ public class MyConverter {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.wtf("","ERROR");
+            Log.wtf("", "ERROR");
         }
         return rss;
     }
 
-    public static RootVideo jsonToRootVideo(String json){
+    public static RootVideo jsonToRootVideo(String json) {
         RootVideo rootVideo = new RootVideo();
         try {
-            rootVideo = new Gson().fromJson(json,RootVideo.class);
-        }catch (Exception e){
+            rootVideo = new Gson().fromJson(json, RootVideo.class);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return rootVideo;

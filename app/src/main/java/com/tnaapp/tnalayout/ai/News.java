@@ -1,22 +1,45 @@
 package com.tnaapp.tnalayout.ai;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by YoungKaka on 10/10/2015.
  */
-public class News
-{
+public class News {
     private String season;
     private String title;
     private List<String> images;
-    private List<String> videos;
+    //    private List<String> videos;
     private String content;
+    private List<NewsVid> videos;
+
+    public class NewsVid {
+        private String title;
+
+        public String getTitle() {
+            return this.title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        private String link;
+
+        public String getLink() {
+            return this.link;
+        }
+
+        public void setLink(String link) {
+            this.link = link;
+        }
+    }
 
     public News() {
     }
 
-    public News(String season, String title, List<String> images, List<String> videos, String content) {
+    public News(String season, String title, List<String> images, List<NewsVid> videos, String content) {
         this.season = season;
         this.title = title;
         this.images = images;
@@ -48,12 +71,12 @@ public class News
         this.images = images;
     }
 
-    public List<String> getVideos() {
-        return videos;
+    public List<NewsVid> getNewsVideos() {
+        return this.videos;
     }
 
-    public void setVideos(List<String> videos) {
-        this.videos = videos;
+    public void setNewsVideos(List<NewsVid> newsvid) {
+        this.videos = newsvid;
     }
 
     public String getContent() {
