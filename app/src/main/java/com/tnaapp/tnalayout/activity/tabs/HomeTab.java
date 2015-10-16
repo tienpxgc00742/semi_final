@@ -74,6 +74,7 @@ public class HomeTab extends Fragment {
         final List<NewsItem> mItemDemo = new ArrayList<>();
         NewsItem items = new NewsItem();
         final Client client = new Client();
+        TTool.setRunnerActivity(((MainActivity) getActivity()));
         client.setListener(new Client.Listener() {
             @Override
             public void doneExecute() {

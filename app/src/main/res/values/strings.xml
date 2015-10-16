@@ -53,4 +53,7 @@
 
     <string name="back_pressed">Press Back again to exit</string>
     <string name="search_fragment_tag">searchTag</string>
+
+    <string name="hours">hrs</string>
+    <string name="minutes">min</string>
 </resources>

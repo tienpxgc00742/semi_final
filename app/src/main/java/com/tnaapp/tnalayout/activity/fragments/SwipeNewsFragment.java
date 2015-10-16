@@ -1,28 +1,22 @@
 package com.tnaapp.tnalayout.activity.fragments;
 
 import android.app.Activity;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
-import android.webkit.WebView;
-import android.widget.MediaController;
-import android.widget.VideoView;
 
 import com.tnaapp.tnalayout.R;
 import com.tnaapp.tnalayout.activity.MainActivity;
@@ -48,6 +42,7 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
     private FloatingActionButton mFloatingActionButton;
     private SlideUpViewGroup mSlideUpViewGroup;
     private NewsSwipeFragmentAdapter adapter;
+
     public List<NewsItem> getNewsItems() {
         return mNewsItems;
     }
@@ -64,9 +59,11 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
         }
         this.viewItem = 0;
     }
+
     public NewsSwipeFragmentAdapter getAdapter() {
         return adapter;
     }
+
     public SwipeNewsFragment() {
     }
 
@@ -79,7 +76,7 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_swipe_news, container, false);
-        ((MainActivity) getActivity()).getSupportActionBar().hide();
+//        ((MainActivity) getActivity()).getSupportActionBar().hide();
         final View decorView = getActivity().getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
 
@@ -93,14 +90,8 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (currentPosition < position) {
-                    Log.d("onPageScrolled", "Swipe Left to " + position);
-                    hideFloatButton();
-                } else if (currentPosition > position) {
-                    Log.d("onPageScrolled", "Swipe Right to " + position);
-                    showFloatButton();
-                }
-                currentPosition = position; // Update current position
+                //không cho bấm vào nút float khi đang chuyển trang
+                mFloatingActionButton.setEnabled(false);
             }
 
             @Override
@@ -113,11 +104,16 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
                         News news = MyConverter.jsonToRootNew(client.result);
                         Log.wtf("SWIPE: ", current.getNewsItem().getId());
                         current.getWebView().loadData(news.getContent(), "text/html; charset=UTF-8", null);
+//                        getVideoInNews(current.getNewsItem().getId());
+                        if (news.getNewsVideos() != null && news.getNewsVideos().size() > 0) { //khi có video
+                            showFloatButton(); // hiện nút float
+                            mFloatingActionButton.setEnabled(true); //cho phép bấm vào nút float
+                        } else { //khi đéo
+                            hideFloatButton();
+                        }
                     }
-
                     @Override
                     public void preExcute() {
-
                     }
                 });
                 client.execute("http://104.155.237.47/web/api/data?id=" + current.getNewsItem().getId(), "json");
@@ -143,8 +139,6 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
         // Inflate the layout for this fragment
         return rootView;
     }
-
-    private int position = 0;
 
     @Override
     public void onAttach(Activity activity) {
@@ -203,7 +197,7 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
         mFloatingActionButton.clearAnimation();
         // Scale down animation
         //hide button
-        ScaleAnimation shrink = new ScaleAnimation(1f, 0.2f, 1f, 0.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        final ScaleAnimation shrink = new ScaleAnimation(1f, 0.2f, 1f, 0.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         shrink.setDuration(150);     // animation duration in milliseconds
         shrink.setInterpolator(new DecelerateInterpolator());
         shrink.setAnimationListener(new Animation.AnimationListener() {
@@ -214,24 +208,30 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
             @Override
             public void onAnimationEnd(Animation animation) {
                 mFloatingActionButton.setVisibility(View.GONE);
-                isFloatButtonVisible = false;
+//                Log.d("mFloatingButton", "visibility: " + mFloatingActionButton.getVisibility());
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
             }
         });
-        mFloatingActionButton.startAnimation(shrink);
-
+        if (mFloatingActionButton.getVisibility() == View.VISIBLE) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mFloatingActionButton.startAnimation(shrink);
+                }
+            }, 200);
+        }
     }
 
-    private boolean isFloatButtonVisible;
+    private boolean isNewsVideosAvailable;
 
     public void showFloatButton() {
         mFloatingActionButton.clearAnimation();
         // Scale down animation
         //hide button
-        ScaleAnimation expand = new ScaleAnimation(0.2f, 1f, 0.2f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        final ScaleAnimation expand = new ScaleAnimation(0.2f, 1f, 0.2f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         expand.setDuration(100);     // animation duration in milliseconds
         expand.setInterpolator(new AccelerateInterpolator());
         expand.setAnimationListener(new Animation.AnimationListener() {
@@ -248,11 +248,15 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
             public void onAnimationRepeat(Animation animation) {
             }
         });
-        if (isFloatButtonVisible == false) {
-            mFloatingActionButton.startAnimation(expand);
+        if (mFloatingActionButton.getVisibility() == View.GONE || mFloatingActionButton.getVisibility()==View.INVISIBLE) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mFloatingActionButton.startAnimation(expand);
+                }
+            }, 200);
         }
     }
-
 
     @Override
     public void onSwipeUp() {
