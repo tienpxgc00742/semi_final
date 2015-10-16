@@ -52,6 +52,8 @@ public class NotificationsReceiver extends ParsePushBroadcastReceiver {
         String title = "";
         String league = "";
         String des = "";
+        String type = "";
+        String id = "";
         JSONObject json = JSONConverter.getJsonFromParse(intent);
         if (json != null) {
             try {
@@ -59,12 +61,14 @@ public class NotificationsReceiver extends ParsePushBroadcastReceiver {
                 title = json.getString("alert");
                 league = json.getString("league");
                 des = json.getString("des");
+                type = json.getString("type");
+                id = json.getString("id");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
-        createCustomNotification(context, title, league, des);
+        createCustomNotification(context, title, league, des,type,id);
     }
 
 
@@ -75,20 +79,25 @@ public class NotificationsReceiver extends ParsePushBroadcastReceiver {
 //
 //    }
 
-    protected void createCustomNotification(Context context, String title, String league, String des) {
+    protected void createCustomNotification(Context context, String title, String league, String des,String type,String id) {
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_notification)
-                        .setLargeIcon(getLargIconByLeague(context, league))
                         .setContentTitle(title)
                         .setContentText(des)
                         .setAutoCancel(true)
                         .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                         .setSound(soundUri)
                         .setTicker(title);
+        if("news".equals(type)) {
+            mBuilder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.news));
+        }else  if("videos".equals(type)){
+            mBuilder.setLargeIcon(getLargIconByLeague(context,league));
+        }
         Intent resultIntent = new Intent(context, ReceiverActivity.class);
-        resultIntent.putExtra("title", title);
+        resultIntent.putExtra("type", type);
+        resultIntent.putExtra("id", id);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(resultIntent);
