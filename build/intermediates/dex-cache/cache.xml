@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\exploded-aar\com.android.support\design\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
+        <dex dex="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\pre-dexed\debug\classes-5550eca4956c765cc549dea289cb4cedba294b12.jar" />
+    </item>
+    <item
+        jar="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1-963f7a4fce80ef6f865f2e295277b5296a68dc77.jar" />
+    </item>
+    <item
+        jar="C:\Users\dfChicken\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.0\6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd\bolts-android-1.2.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.0-c65ea462b1605b8a87d181738bf0585d918ebe91.jar" />
+    </item>
+    <item
+        jar="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\pre-dexed\debug\classes-63bc6443559fdfc357b8794d1f56c153079d766c.jar" />
+    </item>
+    <item
+        jar="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.6.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="1c1afa0ab2a8197a5da1b36c4167a9e479cb74d9">
+        <dex dex="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\pre-dexed\debug\classes-d7021fc0ed5a84f81b71829e693be558524698d3.jar" />
+    </item>
+    <item
+        jar="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="4356e230a981d1bbf047d848b91bc0d9b7c5bacc">
+        <dex dex="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\pre-dexed\debug\classes-80731c6a5968e4239c358777c5c09cb96439d1bc.jar" />
+    </item>
+    <item
+        jar="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\libs\Parse-1.10.2.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="a859414011ce2c18187acc83319688e6bd340635">
+        <dex dex="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\pre-dexed\debug\Parse-1.10.2-82871f909367f7110c56456503e80343c92d9210.jar" />
+    </item>
+    <item
+        jar="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\pre-dexed\debug\classes-57248b344727ea1504763d9b8b3f15d86ba2f85f.jar" />
+    </item>
+    <item
+        jar="C:\Users\dfChicken\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\a60a5e993c98c864010053cb901b7eab25306568\gson-2.2.4.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\pre-dexed\debug\gson-2.2.4-7191e1c4dc5e8dd1c6f9b70e0a8c449b6914fbf9.jar" />
+    </item>
+    <item
+        jar="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="39ae02ce40c3ac828abbf780ce0ff5d7a28b7d6a">
+        <dex dex="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\pre-dexed\debug\classes-4d088fed96e174064392edf0b36aa27859873bf2.jar" />
+    </item>
+    <item
+        jar="F:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1-ae88be436b84cd5c6e48af035c48ed07ae42b542.jar" />
+    </item>
+    <item
+        jar="C:\Users\dfChicken\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="C:\Users\dfChicken\AndroidStudioProjects\TNALayout\app\build\intermediates\pre-dexed\debug\library-2.4.0-3c83456dd365dd8f090087ed1285eb69f19b7704.jar" />
+    </item>
+
+</items>

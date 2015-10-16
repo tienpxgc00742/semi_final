@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundedImageView">
+        <attr name="rounded_border_width" format="dimension" />
+        <attr name="rounded_border_color" format="color" />
+        <attr name="rounded_border_overlay" format="boolean" />
+        <attr name="rounded_color_fill" format="color" />
+    </declare-styleable>
+</resources>

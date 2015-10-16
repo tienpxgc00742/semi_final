@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Draggable layout -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.tnaapp.tnalayout.control.DraggableViewGroup
+        android:id="@+id/youtubeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:id="@+id/viewHeader"
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:fontFamily="sans-serif-thin"
+            android:gravity="center"
+            android:tag="text"
+            android:textColor="@android:color/white"
+            android:background="@android:color/background_dark"
+            android:textSize="25sp">
+
+            <com.tnaapp.tnalayout.control.video.CustomVideoView
+                android:id="@+id/videoViewPlayer"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true" />
+
+            <com.tnaapp.tnalayout.control.video.DefaultCustomPlayerController
+                android:id="@+id/play_video_controller"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true" />
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/viewDesc"
+            android:background="@color/windowBackground"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </FrameLayout>
+
+    </com.tnaapp.tnalayout.control.DraggableViewGroup>
+</LinearLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="5dp"
+    tools:context="com.tnaapp.tnalayout.activity.fragments.VideosChannelFragment">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        android:id="@+id/relativeLayoutChannel">
+
+        <com.tnaapp.tnalayout.model.RoundedImageView
+            android:id="@+id/channelIconFrag"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_launcher_icon"
+            app:rounded_border_color="@android:color/secondary_text_light"
+            app:rounded_border_width="0dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/channelIconFrag"
+            android:layout_toRightOf="@+id/channelIconFrag"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/channelHeaderLabelFrag"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Channel"
+                android:textColor="#ff272727"
+                android:textSize="19sp" />
+
+            <TextView
+                android:id="@+id/channelInfoLabelFrag"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Recommended"
+                android:textSize="14dp">
+            </TextView>
+        </LinearLayout>
+    </RelativeLayout>
+    <com.tnaapp.tnalayout.model.ExpandedListView
+        android:id="@+id/videosDataListFrag"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayoutChannel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+    </com.tnaapp.tnalayout.model.ExpandedListView>
+</RelativeLayout>

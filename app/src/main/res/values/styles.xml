@@ -1,0 +1,67 @@
+<resources>
+
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base"></style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
+    </style>
+
+    <style name="CustomTabTextStyle" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
+        <item name="tabMaxWidth">@dimen/tab_max_width</item>
+        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="tabTextAppearance">@style/CustomTabTextStyle</item>
+        <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="MediaButton">
+        <item name="android:background">@null</item>
+        <item name="android:layout_width">@dimen/media_controller_button_width</item>
+        <item name="android:layout_height">@dimen/media_controller_button_height</item>
+    </style>
+
+    <style name="MediaButton.Previous">
+        <item name="android:src">@drawable/ic_vidcontrol_prev</item>
+    </style>
+
+    <style name="MediaButton.Fullscreen">
+        <item name="android:src">@drawable/ic_vidcontrol_fullscreen_off</item>
+    </style>
+
+    <style name="MediaButton.Play">
+        <item name="android:src">@drawable/ic_vidcontrol_play</item>
+    </style>
+
+    <style name="MediaButton.Pause">
+        <item name="android:src">@drawable/ic_vidcontrol_pause</item>
+    </style>
+
+    <style name="MediaButton.Next">
+        <item name="android:src">@drawable/ic_vidcontrol_next</item>
+    </style>
+    <style name="MediaText">
+        <item name="android:textSize">@dimen/media_controller_text_size</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="Line">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">2px</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:background">@drawable/tresource</item>
+    </style>
+</resources>
+
