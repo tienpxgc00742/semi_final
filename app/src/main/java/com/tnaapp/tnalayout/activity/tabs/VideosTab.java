@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import com.tnaapp.tnalayout.R;
 import com.tnaapp.tnalayout.activity.MainActivity;
 import com.tnaapp.tnalayout.adapter.ExpandableListAdapter;
+import com.tnaapp.tnalayout.ai.DataSource;
 import com.tnaapp.tnalayout.ai.MyConverter;
 import com.tnaapp.tnalayout.ai.Response;
 import com.tnaapp.tnalayout.ai.RootVideo;
@@ -104,6 +105,8 @@ public class VideosTab extends Fragment {
                 listAdapter.processSuggestData();
                 expListView.setAdapter(listAdapter);
                 mProgressBar.setVisibility(View.GONE);
+
+                DataSource.getInstance().setRootVideo(root);
             }
 
             @Override

@@ -215,7 +215,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         mFavoriteFragment = new FavoriteFragment();
         mGuideFragment = new GuideFragment();
         mVideosChannelFragment = new VideosChannelFragment();
-        mSearchResultFragment = new SearchResultFragment();
         //end fragment init
 
         //khởi tạo searchview
@@ -520,7 +519,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         String tag = getResources().getString(R.string.search_fragment_tag);
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager.findFragmentByTag(tag) == null) {
-
+            mSearchResultFragment = new SearchResultFragment();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 
@@ -532,7 +531,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             mSearchResultFragment = (SearchResultFragment) fragmentManager.findFragmentByTag(tag);
         }
 
-        mSearchResultFragment.setQuery(text);
+        mSearchResultFragment.setQuery(text,mCurrentTabSelected);
     }
 
     private SearchResultFragment mSearchResultFragment;

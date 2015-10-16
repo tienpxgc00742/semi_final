@@ -17,6 +17,7 @@ import com.tnaapp.tnalayout.R;
 import com.tnaapp.tnalayout.activity.MainActivity;
 import com.tnaapp.tnalayout.activity.fragments.SwipeNewsFragment;
 import com.tnaapp.tnalayout.adapter.RecyclerItemClickListener;
+import com.tnaapp.tnalayout.ai.DataSource;
 import com.tnaapp.tnalayout.ai.MyConverter;
 import com.tnaapp.tnalayout.ai.News;
 import com.tnaapp.tnalayout.model.NewsFragmentItem;
@@ -101,6 +102,7 @@ public class HomeTab extends Fragment {
                     mRecyclerView.setAdapter(mAdapter);
 
                     mProgressBar.setVisibility(View.GONE);
+                    DataSource.getInstance().setNews(rss);
                 }
                 else
                 {
