@@ -138,6 +138,9 @@ public class HomeTab extends Fragment {
                                 Log.wtf("NEW:", news.getContent());
                                 NewsFragmentItem current = (NewsFragmentItem) mSwipeNewsFragment.getAdapter().getItem(position);
                                 current.getWebView().loadData(news.getContent(), "text/html; charset=UTF-8", null);
+                                if (news.getNewsVideos() != null && news.getNewsVideos().size() > 0) {
+                                    mSwipeNewsFragment.showFloatButton();
+                                }
                             }
 
                             @Override

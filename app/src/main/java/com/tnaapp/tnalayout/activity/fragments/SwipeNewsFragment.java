@@ -35,18 +35,18 @@ import java.util.List;
 /**
  * Created by dfChicken on 09/10/2015.
  */
-public class SwipeNewsFragment extends Fragment implements CustomViewPager.CustomViewPagerListener {
+public class SwipeNewsFragment extends Fragment {
     private static CustomViewPager mViewPager;
     private List<NewsItem> mNewsItems;
     private int viewItem;
     private FloatingActionButton mFloatingActionButton;
     private SlideUpViewGroup mSlideUpViewGroup;
     private NewsSwipeFragmentAdapter adapter;
+    private NewsFragmentItem current;
 
     public List<NewsItem> getNewsItems() {
         return mNewsItems;
     }
-
 
     public void setNewsItems(List<NewsItem> mNewsItems) {
         this.mNewsItems = mNewsItems;
@@ -82,13 +82,22 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
         final View decorView = getActivity().getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
 
+        mFloatingActionButton = (FloatingActionButton) rootView.findViewById(R.id.fab_news);
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("onClickFAB", "true");
+                mSlideUpViewGroup.setVisibility(View.VISIBLE);
+                mSlideUpViewGroup.maximize();
+            }
+        });
+
         mViewPager = (CustomViewPager) rootView.findViewById(R.id.viewpager_news);
         mViewPager.setPageTransformer(true, new DepthPageTransformer());
         if (mNewsItems != null) {
             setupViewPager(mViewPager);
             jumpToNews(viewItem);
         }
-        mViewPager.setCustomViewPagerListener(this);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -98,7 +107,7 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
 
             @Override
             public void onPageSelected(final int arg0) {
-                final NewsFragmentItem current = (NewsFragmentItem) adapter.getItem(arg0);
+                current = (NewsFragmentItem) adapter.getItem(arg0);
                 final Client client = new Client();
                 client.setListener(new Client.Listener() {
                     @Override
@@ -114,6 +123,7 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
                             hideFloatButton();
                         }
                     }
+
                     @Override
                     public void preExcute() {
                     }
@@ -128,16 +138,6 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
         });
         mSlideUpViewGroup = (SlideUpViewGroup) rootView.findViewById(R.id.newsVideosLayout);
         mSlideUpViewGroup.minimize();
-
-        mFloatingActionButton = (FloatingActionButton) rootView.findViewById(R.id.fab_news);
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("onClickFAB", "true");
-                mSlideUpViewGroup.setVisibility(View.VISIBLE);
-                mSlideUpViewGroup.maximize();
-            }
-        });
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -193,8 +193,9 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
         mViewPager.setCurrentItem(position);
     }
 
-    private int currentPosition;
 
+    //hiệu ứng float button thần thánh
+    //mệt vcc
     public void hideFloatButton() {
         mFloatingActionButton.clearAnimation();
         // Scale down animation
@@ -209,8 +210,7 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                mFloatingActionButton.setVisibility(View.GONE);
-//                Log.d("mFloatingButton", "visibility: " + mFloatingActionButton.getVisibility());
+                mFloatingActionButton.setVisibility(View.GONE); //ẩn hẳn sau khi thu nhỏ
             }
 
             @Override
@@ -218,12 +218,16 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
             }
         });
         if (mFloatingActionButton.getVisibility() == View.VISIBLE) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mFloatingActionButton.startAnimation(shrink);
-                }
-            }, 200);
+            if (isFloatButtonScrollHide) { //nếu đang ẩn ở dưới
+                mFloatingActionButton.setVisibility(View.GONE); //ẩn hẳn luôn
+            } else { //nếu ko
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mFloatingActionButton.startAnimation(shrink); //thu bé lại rồi cũng ẩn (ở trên có đặt gone sau khi hết animation "onAnimationEnd" )
+                    }
+                }, 200);
+            }
         }
     }
 
@@ -239,7 +243,7 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
         expand.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                mFloatingActionButton.setVisibility(View.VISIBLE);
+                mFloatingActionButton.setVisibility(View.VISIBLE); //nếu bị ẩn, hiện ra
             }
 
             @Override
@@ -250,23 +254,34 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
             public void onAnimationRepeat(Animation animation) {
             }
         });
-        if (mFloatingActionButton.getVisibility() == View.GONE || mFloatingActionButton.getVisibility()==View.INVISIBLE) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mFloatingActionButton.startAnimation(expand);
-                }
-            }, 200);
+        if (mFloatingActionButton.getVisibility() == View.GONE || mFloatingActionButton.getVisibility() == View.INVISIBLE) {
+            if (isFloatButtonScrollHide) { //nếu đang ẩn ở dưới
+                onSwipeDown(); //đưa lên trên
+                mFloatingActionButton.startAnimation(expand); //rồi phình to
+            } else { //nếu đéo
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mFloatingActionButton.startAnimation(expand); //vẫn phình to=))
+                    }
+                }, 200);
+            }
         }
     }
 
-    @Override
+    //kiểm tra nếu button bị ẩn xuống dưới
+    private boolean isFloatButtonScrollHide = false;
+
     public void onSwipeUp() {
+        isFloatButtonScrollHide = true; //ẩn xuống dưới
+        Log.d("onSwipeDown", "show float button up." + isFloatButtonScrollHide);
         mFloatingActionButton.animate().translationY(mFloatingActionButton.getHeight() * 1.5f).setInterpolator(new AccelerateInterpolator(2)).start();
     }
 
-    @Override
     public void onSwipeDown() {
+        isFloatButtonScrollHide = false; //ko ẩn xuống dưới
+        Log.d("onSwipeDown", "hide float button down." + isFloatButtonScrollHide);
         mFloatingActionButton.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
     }
+
 }

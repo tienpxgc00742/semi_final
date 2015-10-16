@@ -2,46 +2,36 @@ package com.tnaapp.tnalayout.model;
 
 import android.content.Context;
 import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
+import android.webkit.WebView;
 
 /**
- * Created by dfChicken on 15/10/2015.
+ * Created by dfChicken on 16/10/2015.
  */
-public class CustomViewPager extends ViewPager {
-
-    private CustomViewPagerListener mCustomViewPagerListener;
-
-    public void setCustomViewPagerListener(CustomViewPagerListener listener) {
-        if (listener != null)
-            this.mCustomViewPagerListener = listener;
-        else this.mCustomViewPagerListener = new CustomViewPagerListener() {
-            @Override
-            public void onSwipeUp() {
-
-            }
-
-            @Override
-            public void onSwipeDown() {
-
-            }
-        };
-    }
-
-    public CustomViewPager(Context context) {
+public class CustomWebView extends WebView {
+    public CustomWebView(Context context) {
         super(context);
     }
 
-    public CustomViewPager(Context context, AttributeSet attrs) {
+    public CustomWebView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    public CustomWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
+
+    private CustomWebViewListener mCustomWebViewListener;
 
     float mStartDragY;
     boolean isSwipeable = false;
 
-    //điểu khiển cử chỉ
+    public void setCustomWebViewListener(CustomWebViewListener listener) {
+        this.mCustomWebViewListener = listener;
+    }
+
+
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         final int action = ev.getAction();
@@ -54,16 +44,16 @@ public class CustomViewPager extends ViewPager {
             //điểu khiển vuốt lên, xuống...
             case MotionEvent.ACTION_MOVE:
                 //độ dài tối đa để phát hiện vuốt = 120
-                if (y - mStartDragY > 150) {
+                if (y - mStartDragY > 120) {
                     if (isSwipeable) {
 //                        Log.d("onTouchEvent", "Swipe Down!");
-                        mCustomViewPagerListener.onSwipeDown();
+                        mCustomWebViewListener.onSwipeDown();
                         isSwipeable = false;
                     }
-                } else if (mStartDragY - y > 150) {
+                } else if (mStartDragY - y > 120) {
                     if (isSwipeable) {
 //                        Log.d("onTouchEvent", "Swipe Up!");
-                        mCustomViewPagerListener.onSwipeUp();
+                        mCustomWebViewListener.onSwipeUp();
                         isSwipeable = false;
                     }
                 }
@@ -77,10 +67,11 @@ public class CustomViewPager extends ViewPager {
         return super.onTouchEvent(ev);
     }
 
-    public interface CustomViewPagerListener {
+    public interface CustomWebViewListener {
         void onSwipeUp();
 
         void onSwipeDown();
     }
+
 
 }
