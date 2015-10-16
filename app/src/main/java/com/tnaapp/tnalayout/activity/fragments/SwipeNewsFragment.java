@@ -76,7 +76,9 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_swipe_news, container, false);
+
 //        ((MainActivity) getActivity()).getSupportActionBar().hide();
+
         final View decorView = getActivity().getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
 

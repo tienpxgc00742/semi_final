@@ -60,7 +60,7 @@
                 android:value=".activity.MainActivity" />
         </activity>
 
-        <activity android:name=".tien.code.SelectActivity"></activity>
+        <activity android:name=".tien.code.SelectActivity" android:theme="@style/MyMaterialTheme"></activity>
 
         <service android:name="com.parse.PushService" />
 
