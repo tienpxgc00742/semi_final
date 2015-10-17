@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private static DraggableViewGroup mDraggableViewGroup;
     private static CustomVideoView mCustomVideoView;
     private static DefaultCustomPlayerController mController;
-    private static LinearLayout mLayoutDraggable;
     private static ViewGroup mDismissableContainer;
 
     private boolean mBackpressed;
@@ -223,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         //hết searchview
 
         //trình chạy video nổi
-        mLayoutDraggable = (LinearLayout) findViewById(R.id.dismissable_container);
+
         mCustomVideoView = (CustomVideoView) findViewById(R.id.videoViewPlayer);
         mController = (DefaultCustomPlayerController) findViewById(R.id.play_video_controller);
         mController.setVisibilityListener(this);
@@ -316,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         if (mCustomVideoView.getPreviousStream() != url) {
             mCustomVideoView.setMediaController(mController);
             mCustomVideoView.setOnPlayStateListener(mController);
-            mLayoutDraggable.setVisibility(View.VISIBLE);
+            mDismissableContainer.setVisibility(View.VISIBLE);
             mDismissableContainer.invalidate();
             mCustomVideoView.setVideo(url, DefaultCustomPlayerController.DEFAULT_VIDEO_START);
             mCustomVideoView.start();

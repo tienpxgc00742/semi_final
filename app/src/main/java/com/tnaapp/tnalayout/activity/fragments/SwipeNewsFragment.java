@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -17,13 +18,20 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tnaapp.tnalayout.R;
 import com.tnaapp.tnalayout.activity.MainActivity;
 import com.tnaapp.tnalayout.adapter.NewsSwipeFragmentAdapter;
+import com.tnaapp.tnalayout.adapter.VideosInNewsItemArray;
 import com.tnaapp.tnalayout.ai.MyConverter;
 import com.tnaapp.tnalayout.ai.News;
+import com.tnaapp.tnalayout.control.DraggableViewListener;
 import com.tnaapp.tnalayout.control.SlideUpViewGroup;
+import com.tnaapp.tnalayout.control.video.CustomPlayerControllerVisibilityListener;
+import com.tnaapp.tnalayout.control.video.CustomVideoView;
+import com.tnaapp.tnalayout.control.video.DefaultCustomPlayerController;
 import com.tnaapp.tnalayout.model.CustomViewPager;
 import com.tnaapp.tnalayout.model.DepthPageTransformer;
 import com.tnaapp.tnalayout.model.NewsFragmentItem;
@@ -35,14 +43,22 @@ import java.util.List;
 /**
  * Created by dfChicken on 09/10/2015.
  */
-public class SwipeNewsFragment extends Fragment {
+public class SwipeNewsFragment extends Fragment implements CustomPlayerControllerVisibilityListener {
     private static CustomViewPager mViewPager;
     private List<NewsItem> mNewsItems;
     private int viewItem;
     private FloatingActionButton mFloatingActionButton;
-    private SlideUpViewGroup mSlideUpViewGroup;
+
     private NewsSwipeFragmentAdapter adapter;
     private NewsFragmentItem current;
+    //media player
+    private SlideUpViewGroup mSlideUpViewGroup;
+    private static CustomVideoView mCustomVideoView;
+    private static DefaultCustomPlayerController mController;
+    private ListView newsVideosList;
+    private VideosInNewsItemArray newsVidsAdapter;
+    private TextView newsTitle;
+
 
     public List<NewsItem> getNewsItems() {
         return mNewsItems;
@@ -119,6 +135,12 @@ public class SwipeNewsFragment extends Fragment {
                         if (news.getNewsVideos() != null && news.getNewsVideos().size() > 0) { //khi có video
                             showFloatButton(); // hiện nút float
                             mFloatingActionButton.setEnabled(true); //cho phép bấm vào nút float
+                            Log.wtf("VideosInNews", String.valueOf(news.getNewsVideos().size()));
+                            setupNewsVideosPlayer(news.getNewsVideos().get(0).getLink());
+                            newsVidsAdapter = new VideosInNewsItemArray(getContext(),news.getNewsVideos());
+                            newsTitle.setText(current.getNewsItem().getTitle());
+                            newsVideosList.setAdapter(newsVidsAdapter);
+
                         } else { //khi đéo
                             hideFloatButton();
                         }
@@ -133,11 +155,33 @@ public class SwipeNewsFragment extends Fragment {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-//                Log.d("onPageScrollChanged", "State: " + state);
+                if(state ==0){
+                    mFloatingActionButton.setEnabled(true);
+                }
             }
         });
+        //player
         mSlideUpViewGroup = (SlideUpViewGroup) rootView.findViewById(R.id.newsVideosLayout);
         mSlideUpViewGroup.minimize();
+        mCustomVideoView = (CustomVideoView) rootView.findViewById(R.id.newsVideosPlayer);
+        mController = (DefaultCustomPlayerController) rootView.findViewById(R.id.newsVideosController);
+        mController.setVisibilityListener(this);
+        mSlideUpViewGroup.setDraggableViewListener(new DraggableViewListener() {
+            @Override
+            public void onMaximized() {
+                Log.d("DraggableView", "Maximized");
+            }
+
+            @Override
+            public void onMinimized() {
+                mCustomVideoView.stopPlayback();
+                Log.d("DraggableView", "Minimized");
+            }
+        });
+
+        newsVideosList = (ListView) rootView.findViewById(R.id.newsVideosList);
+        newsTitle = (TextView) rootView.findViewById(R.id.newsTitle);
+
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -175,6 +219,13 @@ public class SwipeNewsFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    public void setupNewsVideosPlayer(String url) {
+        mCustomVideoView.setMediaController(mController);
+        mCustomVideoView.setOnPlayStateListener(mController);
+        mCustomVideoView.setVideo(url, DefaultCustomPlayerController.DEFAULT_VIDEO_START);
+        mCustomVideoView.start();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -266,6 +317,15 @@ public class SwipeNewsFragment extends Fragment {
                     }
                 }, 200);
             }
+        } else if (mFloatingActionButton.getVisibility() == View.VISIBLE && isFloatButtonScrollHide) {
+            onSwipeDown();
+            mFloatingActionButton.startAnimation(expand);
+        }
+    }
+
+    public void enableFloatButton() {
+        if (mFloatingActionButton != null) {
+            mFloatingActionButton.setEnabled(true);
         }
     }
 
@@ -284,4 +344,13 @@ public class SwipeNewsFragment extends Fragment {
         mFloatingActionButton.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
     }
 
+    @Override
+    public void onControlsVisibilityChange(boolean value) {
+
+    }
+
+    @Override
+    public void requestFullScreen() {
+
+    }
 }
