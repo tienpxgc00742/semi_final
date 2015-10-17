@@ -44,7 +44,7 @@ public class RootVideo {
         List<Video> videos = new ArrayList<>();
         for (Response r : response) {
             for (Video v : r.getVideos()) {
-                if (v.getTitle().contains(text.trim()) || v.getDescription().contains(text.trim())) {
+                if (v.getTitle().toLowerCase().contains(text.trim()) || v.getDescription().contains(text.trim())) {
                     videos.add(v);
                 }
             }
