@@ -15,6 +15,7 @@ import android.util.Log;
 import com.parse.ParsePushBroadcastReceiver;
 import com.tnaapp.tnalayout.R;
 import com.tnaapp.tnalayout.activity.MainActivity;
+import com.tnaapp.tnalayout.tien.box.TTool;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -95,18 +96,30 @@ public class NotificationsReceiver extends ParsePushBroadcastReceiver {
         }else  if("videos".equals(type)){
             mBuilder.setLargeIcon(getLargIconByLeague(context,league));
         }
-        Intent resultIntent = new Intent(context, ReceiverActivity.class);
-        resultIntent.putExtra("type", type);
-        resultIntent.putExtra("id", id);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(MainActivity.class);
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
+
+        Intent backIntent = new Intent(context, MainActivity.class);
+        backIntent.putExtra("id", id);
+        backIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+      //
+        Intent intent = new Intent(context, ReceiverActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("id", id);
+        final PendingIntent pendingIntent = PendingIntent.getActivities(context, 1,
+                new Intent[]{backIntent, intent}, PendingIntent.FLAG_ONE_SHOT);
+
+//        Intent resultIntent = new Intent(context, ReceiverActivity.class);
+//        resultIntent.putExtra("type", type);
+//        resultIntent.putExtra("id", id);
+//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+//        stackBuilder.addParentStack(MainActivity.class);
+//        stackBuilder.addNextIntent(resultIntent);
+//        PendingIntent resultPendingIntent =
+//                stackBuilder.getPendingIntent(
+//                        0,
+//                        PendingIntent.FLAG_UPDATE_CURRENT
+//                );
+        mBuilder.setContentIntent(pendingIntent);
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(mId, mBuilder.build());

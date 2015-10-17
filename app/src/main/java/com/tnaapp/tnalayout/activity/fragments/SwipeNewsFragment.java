@@ -42,7 +42,6 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
     private FloatingActionButton mFloatingActionButton;
     private SlideUpViewGroup mSlideUpViewGroup;
     private NewsSwipeFragmentAdapter adapter;
-
     public List<NewsItem> getNewsItems() {
         return mNewsItems;
     }
@@ -163,14 +162,16 @@ public class SwipeNewsFragment extends Fragment implements CustomViewPager.Custo
                 final View decorView = getActivity().getWindow().getDecorView();
                 decorView.setSystemUiVisibility(getView().SYSTEM_UI_FLAG_VISIBLE);
                 if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                    fragmentTransaction.replace(R.id.container_body, MainActivity.mHomeFragment);
-                    fragmentTransaction.commit();
-                    MainActivity.mFragmentDrawer.selectItem(0);
-                    MainActivity.mToolbar.setTitle(getResources().getString(R.string.title_home));
-                    return true;
+                    if(MainActivity.mHomeFragment != null){
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                        fragmentTransaction.replace(R.id.container_body, MainActivity.mHomeFragment);
+                        fragmentTransaction.commit();
+                        MainActivity.mFragmentDrawer.selectItem(0);
+                        MainActivity.mToolbar.setTitle(getResources().getString(R.string.title_home));
+                        return true;
+                    }
                 }
                 return false;
             }

@@ -29,6 +29,7 @@ import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
 import com.tnaapp.tnalayout.tien.code.TActivity;
 
 import com.facebook.AccessToken;
@@ -95,7 +96,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private static LinearLayout mLayoutDraggable;
     private static ViewGroup mDismissableContainer;
 
-    private boolean mBackpressed;
+    private boolean mBackpressed = false;
+    private boolean mFromNotification = false;
 
     @Override
     public void onBackPressed() {
@@ -137,7 +139,15 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("MainActivity", "OnCreate");
+        //chek notification
+        Intent it = getIntent();
+        Bundle bl = it.getExtras();
+        if (bl != null) {
 
+            if (bl.get("id") != null) {
+                mFromNotification = true;
+            }
+        }
         //facebook login init
         FacebookSdk.sdkInitialize(getApplicationContext());
         //load prefs settings - base context - éo biết context là cái mẹ gì
@@ -303,7 +313,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         //ngừng chế =))
 
         displayView(0);
-        TActivity.configMainActivity(this);
+        if (!mFromNotification) {
+            //TActivity.configMainActivity(this);
+        }
     }
 
     private static ObjectAnimator mDraggableViewGroupAnimator;
@@ -531,7 +543,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             mSearchResultFragment = (SearchResultFragment) fragmentManager.findFragmentByTag(tag);
         }
 
-        mSearchResultFragment.setQuery(text,mCurrentTabSelected);
+        mSearchResultFragment.setQuery(text, mCurrentTabSelected);
     }
 
     private SearchResultFragment mSearchResultFragment;

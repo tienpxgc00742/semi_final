@@ -40,9 +40,9 @@ public class TTool {
         long diffMinutes = diff / (60 * 1000) % 60;
         String time = "";
         if (diffHours > 0) {
-            time = String.valueOf(diffHours) + " " + runnerActivity.getResources().getString(R.string.hours);
+           // time = String.valueOf(diffHours) + " " + runnerActivity.getResources().getString(R.string.hours);
         } else {
-            time = String.valueOf(diffMinutes) + " " + runnerActivity.getResources().getString(R.string.minutes);
+          //  time = String.valueOf(diffMinutes) + " " + runnerActivity.getResources().getString(R.string.minutes);
         }
         return time;
     }
