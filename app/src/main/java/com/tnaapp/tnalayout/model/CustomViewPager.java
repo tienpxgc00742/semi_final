@@ -15,7 +15,19 @@ public class CustomViewPager extends ViewPager {
     private CustomViewPagerListener mCustomViewPagerListener;
 
     public void setCustomViewPagerListener(CustomViewPagerListener listener) {
-        this.mCustomViewPagerListener = listener;
+        if (listener != null)
+            this.mCustomViewPagerListener = listener;
+        else this.mCustomViewPagerListener = new CustomViewPagerListener() {
+            @Override
+            public void onSwipeUp() {
+
+            }
+
+            @Override
+            public void onSwipeDown() {
+
+            }
+        };
     }
 
     public CustomViewPager(Context context) {

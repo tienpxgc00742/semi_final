@@ -208,8 +208,8 @@ public class SlideUpViewGroup extends ViewGroup {
     @Override
     protected void onFinishInflate() {
         Log.d(TAG, "onFInishInflate");
-        mHeaderView = findViewById(R.id.viewHeader);
-        mDescView = findViewById(R.id.viewDesc);
+        mHeaderView = findViewById(R.id.newsVideosHeader);
+        mDescView = findViewById(R.id.newsVideosDesc);
         super.onFinishInflate();
     }
 

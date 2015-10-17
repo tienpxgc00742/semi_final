@@ -5,6 +5,7 @@ package com.tnaapp.tnalayout.ai;
  */
 public class Video
 {
+    private int id;
     private String title;
     private String description;
     private String source;
@@ -13,7 +14,8 @@ public class Video
     public Video() {
     }
 
-    public Video(String title, String description, String source,String img) {
+    public Video(int id,String title, String description, String source,String img) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.source = source;
@@ -50,5 +52,13 @@ public class Video
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

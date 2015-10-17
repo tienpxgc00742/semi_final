@@ -94,7 +94,7 @@ public class VideosTab extends Fragment {
                     Log.wtf("id", r.getId());
                     listDataHeader.add(r.getId());
                     for (Video videoitem : r.getVideos()) {
-                        video.add(new Video(videoitem.getTitle(),videoitem.getDescription(),videoitem.getSource(),videoitem.getImg()));
+                        video.add(new Video(videoitem.getId(),videoitem.getTitle(),videoitem.getDescription(),videoitem.getSource(),videoitem.getImg()));
                     }
                     listDataChild.put(listDataHeader.get(i), video);
                     i++;

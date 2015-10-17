@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.tnaapp.tnalayout.ai.DataSource;
 import com.tnaapp.tnalayout.tien.code.TActivity;
 
 import com.facebook.AccessToken;
@@ -93,11 +94,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private static DraggableViewGroup mDraggableViewGroup;
     private static CustomVideoView mCustomVideoView;
     private static DefaultCustomPlayerController mController;
-    private static LinearLayout mLayoutDraggable;
     private static ViewGroup mDismissableContainer;
 
     private boolean mBackpressed = false;
-    private boolean mFromNotification = false;
+    private int mFromNotification = -1;
 
     @Override
     public void onBackPressed() {
@@ -143,9 +143,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         Intent it = getIntent();
         Bundle bl = it.getExtras();
         if (bl != null) {
-
-            if (bl.get("id") != null) {
-                mFromNotification = true;
+        String sid = bl.getString("id");
+            if (sid != null) {
+                mFromNotification = Integer.parseInt(sid);
             }
         }
         //facebook login init
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         //hết searchview
 
         //trình chạy video nổi
-        mLayoutDraggable = (LinearLayout) findViewById(R.id.dismissable_container);
+
         mCustomVideoView = (CustomVideoView) findViewById(R.id.videoViewPlayer);
         mController = (DefaultCustomPlayerController) findViewById(R.id.play_video_controller);
         mController.setVisibilityListener(this);
@@ -313,9 +313,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         //ngừng chế =))
 
         displayView(0);
-        if (!mFromNotification) {
+
             //TActivity.configMainActivity(this);
-        }
+
     }
 
     private static ObjectAnimator mDraggableViewGroupAnimator;
@@ -328,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         if (mCustomVideoView.getPreviousStream() != url) {
             mCustomVideoView.setMediaController(mController);
             mCustomVideoView.setOnPlayStateListener(mController);
-            mLayoutDraggable.setVisibility(View.VISIBLE);
+            mDismissableContainer.setVisibility(View.VISIBLE);
             mDismissableContainer.invalidate();
             mCustomVideoView.setVideo(url, DefaultCustomPlayerController.DEFAULT_VIDEO_START);
             mCustomVideoView.start();
@@ -345,6 +345,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             mDraggableViewGroupExist = true;
         }
     }
+
 
     //bật theo dõi login
     //lấy thông tin username, avatar..
@@ -421,6 +422,11 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         loadUserSettings();
         // Logs 'install' and 'app activate' App Events.
         AppEventsLogger.activateApp(this);
+        if(mFromNotification >= 0) {
+            String url = DataSource.getInstance().getRootVideo().getVideo(mFromNotification).getSource();
+            reloadFloatVideoPlayer(url);
+            mFromNotification = -1;
+        }
     }
 
     @Override
@@ -453,7 +459,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+            int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {

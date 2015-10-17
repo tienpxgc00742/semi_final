@@ -31,6 +31,18 @@ public class RootVideo {
         return res;
     }
 
+    public Video getVideo(int id){
+      Video video = new Video();
+        for (Response r : response) {
+            for (Video v : r.getVideos()) {
+                if(v.getId() == id) {
+                    video = v;
+                    break;
+                }
+            }
+        }
+        return  video;
+    }
     public List<Video> getAllVideos() {
         List<Video> videos = new ArrayList<>();
         for (Response r : response) {
