@@ -33,7 +33,7 @@ public class VideosTab extends Fragment {
     ExpandableListView expListView;
     //header channel
     List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild; //data merge with header
+    HashMap<String, List<Video>> listDataChild; //data merge with header
 
 
     private ProgressBar mProgressBar;
@@ -57,7 +57,7 @@ public class VideosTab extends Fragment {
         expListView = (ExpandableListView) view.findViewById(R.id.lvExp);
         // preparing list data
         listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
+        listDataChild = new HashMap<String, List<Video>>();
         prepareListData();
         //init expandablelistview
         listAdapter = new ExpandableListAdapter(view.getContext(), listDataHeader, listDataChild);
@@ -90,11 +90,11 @@ public class VideosTab extends Fragment {
                 Log.wtf("start", client.result);
                 int i = 0;
                 for (Response r : root.getResponse()) {
-                    List<String> video = new ArrayList<String>();
+                    List<Video> video = new ArrayList<Video>();
                     Log.wtf("id", r.getId());
                     listDataHeader.add(r.getId());
                     for (Video videoitem : r.getVideos()) {
-                        video.add(videoitem.getTitle());
+                        video.add(new Video(videoitem.getTitle(),videoitem.getDescription(),videoitem.getSource(),videoitem.getImg()));
                     }
                     listDataChild.put(listDataHeader.get(i), video);
                     i++;

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.tnaapp.tnalayout.R;
 import com.tnaapp.tnalayout.ai.Video;
 import com.tnaapp.tnalayout.tien.model.Item;
+import com.tnaapp.tnalayout.utils.DownloadImageTask;
 
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class SearchVideoResultAdapter extends BaseAdapter implements ISearchAdpa
         }else  {
             myHolder = (MyHolder) view.getTag();
         }
-       // new DownloadImageTask(myHolder.mImage).execute(video.)
+       new DownloadImageTask(myHolder.mImage).execute(video.getImg());
         myHolder.mTitle.setText(video.getTitle());
         myHolder.mChannel.setText(video.getDescription());
 

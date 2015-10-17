@@ -2,6 +2,90 @@
 <items version="2" >
 
     <item
+<<<<<<< HEAD
+        jar="D:\semi_final\app\libs\Parse-1.10.2.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="a859414011ce2c18187acc83319688e6bd340635">
+        <dex dex="D:\semi_final\app\build\intermediates\pre-dexed\debug\Parse-1.10.2-ca4ce4aa422cbdea628f37a34d6134886ffdff41.jar" />
+    </item>
+    <item
+        jar="D:\semi_final\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="D:\semi_final\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1-fa9e1b2a986c283201b54949de882857153e6883.jar" />
+    </item>
+    <item
+        jar="D:\semi_final\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="D:\semi_final\app\build\intermediates\pre-dexed\debug\classes-9fe8e037be34009b41d6df8fd58fa90b03cddbe7.jar" />
+    </item>
+    <item
+        jar="C:\Users\XTien\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="D:\semi_final\app\build\intermediates\pre-dexed\debug\library-2.4.0-c5f1c89e2f0d3c46948af2a37a3238d4ab27fa16.jar" />
+    </item>
+    <item
+        jar="D:\semi_final\app\build\intermediates\exploded-aar\com.android.support\design\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
+        <dex dex="D:\semi_final\app\build\intermediates\pre-dexed\debug\classes-5b22c38f5fe325ed355716f1c3bd9478a695a21f.jar" />
+    </item>
+    <item
+        jar="D:\semi_final\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="D:\semi_final\app\build\intermediates\pre-dexed\debug\classes-05981a3f49d04246b5ef7e383a1984dd5d2139c8.jar" />
+    </item>
+    <item
+        jar="C:\Users\XTien\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.0\6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd\bolts-android-1.2.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="D:\semi_final\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.0-3e4d34783416c13a92776d21f7a4236af0b5c729.jar" />
+    </item>
+    <item
+        jar="C:\Users\XTien\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\a60a5e993c98c864010053cb901b7eab25306568\gson-2.2.4.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="D:\semi_final\app\build\intermediates\pre-dexed\debug\gson-2.2.4-892b8f4a89cd1864cb6e92d4d554ac5e85bb5c77.jar" />
+    </item>
+    <item
+        jar="D:\semi_final\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.6.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="1c1afa0ab2a8197a5da1b36c4167a9e479cb74d9">
+        <dex dex="D:\semi_final\app\build\intermediates\pre-dexed\debug\classes-515cab74f7dd0459dce17da8f252076036b90a74.jar" />
+    </item>
+    <item
+        jar="D:\semi_final\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="4356e230a981d1bbf047d848b91bc0d9b7c5bacc">
+        <dex dex="D:\semi_final\app\build\intermediates\pre-dexed\debug\classes-95837ec7f439c845234811940423e226c967c8eb.jar" />
+    </item>
+    <item
+        jar="D:\semi_final\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="39ae02ce40c3ac828abbf780ce0ff5d7a28b7d6a">
+        <dex dex="D:\semi_final\app\build\intermediates\pre-dexed\debug\classes-dec5cbba6163bd7e0ea24ea83eebcb1634bf2218.jar" />
+    </item>
+    <item
+        jar="C:\Users\XTien\Documents\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="D:\semi_final\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1-f8fbee90392cdf090ca0feae75c6988c8fa73c3b.jar" />
+=======
         jar="C:\Users\YoungKaka\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\a60a5e993c98c864010053cb901b7eab25306568\gson-2.2.4.jar"
         jumboMode="false"
         revision="23.0.0"
@@ -84,6 +168,7 @@
         revision="23.0.0"
         sha1="39ae02ce40c3ac828abbf780ce0ff5d7a28b7d6a">
         <dex dex="F:\Project SEM34\In Github\app\semi_final\app\build\intermediates\pre-dexed\debug\classes-2dfb1e863b6a65308ec727ae21114e2d1722c61c.jar" />
+>>>>>>> 54070e172585766d617415c7e0644fe824e3bc4e
     </item>
 
 </items>

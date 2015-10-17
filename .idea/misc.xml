@@ -50,6 +50,10 @@
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
+<<<<<<< HEAD
+  <component name="SvnBranchConfigurationManager">
+    <option name="mySupportsUserInfoFilter" value="true" />
+=======
   <component name="masterDetails">
     <states>
       <state key="ProjectJDKs.UI">
@@ -65,5 +69,6 @@
         </settings>
       </state>
     </states>
+>>>>>>> 54070e172585766d617415c7e0644fe824e3bc4e
   </component>
 </project>

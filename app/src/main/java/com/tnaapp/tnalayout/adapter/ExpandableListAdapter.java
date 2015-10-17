@@ -11,13 +11,17 @@ import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tnaapp.tnalayout.R;
 import com.tnaapp.tnalayout.activity.MainActivity;
 import com.tnaapp.tnalayout.activity.fragments.VideosChannelFragment;
+import com.tnaapp.tnalayout.ai.Video;
 import com.tnaapp.tnalayout.model.ExpandedListView;
+import com.tnaapp.tnalayout.tien.box.DatabaseHandler;
+import com.tnaapp.tnalayout.utils.DownloadImageTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,19 +55,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context _context;
     private List<String> _listDataHeader; // header titles - đưa String về itemvideos
     // dữ liệu con theo dạng header - title
-    private HashMap<String, List<String>> _listDataChild;
-    private HashMap<String, List<String>> _listDataSuggest;
+    private HashMap<String, List<Video>> _listDataChild;
+    private HashMap<String, List<Video>> _listDataSuggest;
     private VideosChannelFragment mVideosChannelFragmentOnAdapter;
 
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
-                                 HashMap<String, List<String>> listChildData) {
+                                 HashMap<String, List<Video>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
         processSuggestData();
     }
 
-    public void setDataChild(HashMap<String, List<String>> listDataChild) {
+    public void setDataChild(HashMap<String, List<Video>> listDataChild) {
         this._listDataChild = listDataChild;
     }
 
@@ -74,12 +78,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     //chuẩn bị data cho suggest list
     public void processSuggestData() {
         try {
-            HashMap<String, List<String>> _listDataSuggestTemp = new HashMap<>();
+            HashMap<String, List<Video>> _listDataSuggestTemp = new HashMap<>();
             for (int i = 0; i < _listDataHeader.size(); i++) {
                 String _dataHeader = _listDataHeader.get(i);
-                List<String> _listStringTemp = _listDataChild.get(_listDataHeader.get(i));
+                List<Video> _listStringTemp = _listDataChild.get(_listDataHeader.get(i));
                 int j = 0;
-                List<String> _listStringSuggest = new ArrayList<>();
+                List<Video> _listStringSuggest = new ArrayList<>();
                 if (_listDataChild.get(_listDataHeader.get(i)).size() > _SUGGEST_NUMBER) {
                     for (j = 0; j < _SUGGEST_NUMBER; j++) {
                         _listStringSuggest.add(j, _listStringTemp.get(j));
@@ -126,11 +130,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
                 Log.d("onChildClick", childText);
-                if((MainActivity) getSupportActivity()!=null){ //cẩn thận kiểm tra null vẫn hơn -_-
-                    ((MainActivity) getSupportActivity()).reloadFloatVideoPlayer("http://rmcdn.2mdn.net/MotifFiles/html/1248596/android_1330378998288.mp4");
-                    ((MainActivity) getSupportActivity()).getVideosChannelFragment().setChannelData(getGroup(groupPosition).toString());
-                    ((MainActivity) getSupportActivity()).getVideosChannelFragment().setVideosData(_listDataChild.get(getGroup(groupPosition).toString()));
-                    ((MainActivity) getSupportActivity()).loadChannelForPlayer();
+                if ((MainActivity) getSupportActivity() != null) { //cẩn thận kiểm tra null vẫn hơn -_-
+
+//                    ((MainActivity) getSupportActivity()).reloadFloatVideoPlayer("http://rmcdn.2mdn.net/MotifFiles/html/1248596/android_1330378998288.mp4");
+//                    ((MainActivity) getSupportActivity()).getVideosChannelFragment().setChannelData(getGroup(groupPosition).toString());
+//                    ((MainActivity) getSupportActivity()).getVideosChannelFragment().setVideosData(_listDataChild.get(getGroup(groupPosition).toString()));
+//                    ((MainActivity) getSupportActivity()).loadChannelForPlayer();
+                    //Save History
+                    DatabaseHandler db = new DatabaseHandler(view.getContext());
+                    db.addHistory(_listDataChild.get(getGroup(groupPosition)).get(groupPosition));
                 }
             }
         });
@@ -138,6 +146,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.lblListItem);
         txtListChild.setText(childText);
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.thumbnail);
+        new DownloadImageTask(imageView).execute(_listDataChild.get(getGroup(groupPosition)).get(groupPosition).getImg());
+
         return convertView;
     }
 
@@ -177,11 +188,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.list_videos_channel, null);
         }
         String headerTitle = (String) getGroup(groupPosition);
-        List<String> _filterData = _listDataSuggest.get(headerTitle);
+        List<Video> _filterData = _listDataSuggest.get(headerTitle);
         final List<String> _suggestData = new ArrayList<>();
         if (_filterData != null) {
             for (int i = 0; i < _filterData.size(); i++) {
-                _suggestData.add(_filterData.get(i));
+                _suggestData.add(_filterData.get(i).getTitle());
             }
         }
 
